@@ -21,15 +21,14 @@ class _LoginPageState extends State<LoginPage> {
 
   // sign user in method
    void signUserIn() async {
-
      // show loading circle
      showDialog(
        context: context,
        builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-     },);
+         return const Center(
+           child: CircularProgressIndicator(),
+         );
+       },);
 
      // sign in
      try {
@@ -40,9 +39,7 @@ class _LoginPageState extends State<LoginPage> {
 
        // pop the loading circle
        Navigator.pop(context);
-     }
-
-     } On FirebaseAuthException; catch (e) {
+     } on FirebaseAuthException catch (e) {
        // pop the loading circle
        Navigator.pop(context);
 
@@ -51,13 +48,15 @@ class _LoginPageState extends State<LoginPage> {
        if (e.code == 'user-not-found') {
          // show error to user
          wrongEmailMessage();
+       }
 
-         // Wrong Password
-       } else if(e.code == 'wrong-password') {
+       // Wrong Password
+       else if (e.code == 'wrong-password') {
          // show error to user
          wrongPasswordMessage();
        }
      }
+   }
 
    // wrong email message popup
   void wrongEmailMessage(){
