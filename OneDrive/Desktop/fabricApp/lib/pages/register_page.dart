@@ -6,67 +6,73 @@ import 'package:flutter/material.dart';
 
 import '../components/text_field.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   final Function()? onTap;
-  const LoginPage({super.key, required this.onTap});
+  const RegisterPage({super.key, required this.onTap});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   // Text editing controllers
   final emailController = TextEditingController();
-
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
-  // sign user in method
-   void signUserIn() async {
-     // show loading circle
-     showDialog(
-       context: context,
-       builder: (context) {
-         return const Center(
-           child: CircularProgressIndicator(),
-         );
-       },);
+  // sign user up method
+  void signUserUp() async {
+    // show loading circle
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },);
 
-     // sign in
-     try {
-       await FirebaseAuth.instance.signInWithEmailAndPassword(
-         email: emailController.text,
-         password: passwordController.text,
-       );
+    // try creating the user
+    try {
+      // check if password is confirmed
+      if (passwordController.text == confirmPasswordController.text){
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        );
+      } else {
+        // show error message, passwords don't match
+        showErrorMessage("Password don't match!");
+      }
 
-       // pop the loading circle
-       Navigator.pop(context);
-     } on FirebaseAuthException catch (e) {
-       // pop the loading circle
-       Navigator.pop(context);
-       // show error message
-       showErrorMessage(e.code);
+      // pop the loading circle
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      // pop the loading circle
+      Navigator.pop(context);
+      // show error message
+      showErrorMessage(e.code);
 
 
 
-     }
-   }
+    }
+  }
 
-   // error message to user
+  // error message to user
   void showErrorMessage(String message){
-     showDialog(
-         context: context,
-         builder: (context) {
-           return AlertDialog(
-             backgroundColor: Colors.grey,
-             title: Center(
-               child: Text(
-                 message,
-                 style: const TextStyle(color: Colors.grey),
-               ),
-             ),
-           );
-         }
-     );
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.grey,
+            title: Center(
+              child: Text(
+                message,
+                style: const TextStyle(color: Colors.grey),
+              ),
+            ),
+          );
+        }
+    );
   }
 
   @override
@@ -86,11 +92,11 @@ class _LoginPageState extends State<LoginPage> {
                   size: 100,
                   color: Colors.black,
                 ),
-                const SizedBox(height: 50),
+                const SizedBox(height: 25.0),
 
-                // welcome text
+                // lets get started by creating an account
                 const Text(
-                  "Welcome to Fabric design store",
+                  "let's get started",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 18,
@@ -112,30 +118,23 @@ class _LoginPageState extends State<LoginPage> {
                   obscureText: true,
                 ),
                 const SizedBox(height: 25),
-
-                // forgot password?
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Forgot Password?',
-                        style: TextStyle(
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
-                  ),
+                // confirm password text field
+                MyTextField(
+                  controller: confirmPasswordController,
+                  hintText: 'confirm password',
+                  obscureText: true,
                 ),
+                const SizedBox(height: 25),
+
+
                 const SizedBox(height: 25),
 
                 // sign in button
                 MyButton(
-                  text: 'Sign up',
-                  onTap: signUserIn,
+                  text: "Sign Up",
+                  onTap: signUserUp,
                 ),
-                const SizedBox(height: 50.0),
+                const SizedBox(height: 25.0),
 
 
                 // or continue with
@@ -192,17 +191,17 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   children: [
                     const Text(
-                      "Don't have an account?",
+                      "Already have an account?",
                       style: TextStyle(color: Colors.grey),
                     ),
                     const SizedBox(width: 4.0),
                     GestureDetector(
                       onTap: widget.onTap,
                       child: const Text(
-                        "Create one",
+                        "Login Now",
                         style: TextStyle(
-                            color: Colors.lightBlue,
-                            fontWeight: FontWeight.bold,
+                          color: Colors.lightBlue,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
@@ -216,4 +215,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
+
 

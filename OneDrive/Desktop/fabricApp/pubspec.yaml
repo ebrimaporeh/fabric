@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_core: ^2.15.0
   firebase_auth: ^4.7.1
+  flutter_svg: ^0.17.4 # it helps us to use svg
 
 dev_dependencies:
   flutter_test:
@@ -65,6 +66,7 @@ flutter:
      - assets/Google__G__Logo.svg.png
      - assets/facebook_logo.png
      - assets/Apple_logo_black.svg.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

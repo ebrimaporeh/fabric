@@ -1,3 +1,4 @@
+import 'package:fabric_app/pages/login_or_register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'Home_page.dart';
@@ -21,7 +22,7 @@ class AuthPage extends StatelessWidget {
 
           // user is NOT logged on
           else {
-            return LoginPage();
+            return const LoginOrRegisterPage();
           }
         },
       ),
