@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "449850759472",
+    "project_id": "fabric-2796b",
+    "storage_bucket": "fabric-2796b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:449850759472:android:2aff1a8a447a6628d390f5",
+        "android_client_info": {
+          "package_name": "com.example.fabric_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "449850759472-70tjmildo40r5gfe2seoe7fl6394qtfh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLQg3D6oLtklZTkbAgF396Hdgke5ZUB_M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "449850759472-70tjmildo40r5gfe2seoe7fl6394qtfh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
